@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         allFindViewById();
     }
-
     private void allFindViewById(){
         mainActivity_layout = findViewById(R.id.mainActivity_layout);
         music_viewPager =findViewById(R.id.music_viewPager);
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         forwardMusic_btn = findViewById(R.id.forward_btn);
         musicListPosition_pb = findViewById(R.id.musicListPosition_pb);
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -82,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 forwardMusic();
             }
         });
-
     }
-
     private void createMusicViewPager(){
         musicViewPagerAdapter = new MusicViewPagerAdapter(this);
         if (musicViewPagerAdapter.items.size() == 0){
@@ -101,11 +97,79 @@ public class MainActivity extends AppCompatActivity {
                     setSeekBarValue();
                     uiUpdate();
                 }
-
                 @Override
                 public void onChangeColor(Palette.Swatch dominantSwatch) {
                     changeUiColor(dominantSwatch);
-
+                }
+            }));
+            musicViewPagerAdapter.items.add(new MusicViewPagerItemFragment("a_whiter_shade_of_pale", R.raw.a_whiter_shade_of_pale, new MusicViewPagerItemFragment.OnContactListener() {
+                @Override
+                public void onContact(MusicViewPagerItemFragment fragment) {
+                    title_tv.setText(fragment.title);
+                    if (isPlaying){
+                        pauseMusic();
+                    }
+                    createMediaPlayer(fragment.musicRes);
+                    resumeMusic();
+                    mediaDuration = mediaPlayer.getDuration();
+                    setSeekBarValue();
+                    uiUpdate();
+                }
+                @Override
+                public void onChangeColor(Palette.Swatch dominantSwatch) {
+                    changeUiColor(dominantSwatch);
+                }
+            }));           musicViewPagerAdapter.items.add(new MusicViewPagerItemFragment("soldier_of_fortune", R.raw.soldier_of_fortune, new MusicViewPagerItemFragment.OnContactListener() {
+                @Override
+                public void onContact(MusicViewPagerItemFragment fragment) {
+                    title_tv.setText(fragment.title);
+                    if (isPlaying){
+                        pauseMusic();
+                    }
+                    createMediaPlayer(fragment.musicRes);
+                    resumeMusic();
+                    mediaDuration = mediaPlayer.getDuration();
+                    setSeekBarValue();
+                    uiUpdate();
+                }
+                @Override
+                public void onChangeColor(Palette.Swatch dominantSwatch) {
+                    changeUiColor(dominantSwatch);
+                }
+            }));           musicViewPagerAdapter.items.add(new MusicViewPagerItemFragment("thunderclouds", R.raw.thunderclouds, new MusicViewPagerItemFragment.OnContactListener() {
+                @Override
+                public void onContact(MusicViewPagerItemFragment fragment) {
+                    title_tv.setText(fragment.title);
+                    if (isPlaying){
+                        pauseMusic();
+                    }
+                    createMediaPlayer(fragment.musicRes);
+                    resumeMusic();
+                    mediaDuration = mediaPlayer.getDuration();
+                    setSeekBarValue();
+                    uiUpdate();
+                }
+                @Override
+                public void onChangeColor(Palette.Swatch dominantSwatch) {
+                    changeUiColor(dominantSwatch);
+                }
+            }));
+            musicViewPagerAdapter.items.add(new MusicViewPagerItemFragment("under_pressure", R.raw.under_pressure, new MusicViewPagerItemFragment.OnContactListener() {
+                @Override
+                public void onContact(MusicViewPagerItemFragment fragment) {
+                    title_tv.setText(fragment.title);
+                    if (isPlaying){
+                        pauseMusic();
+                    }
+                    createMediaPlayer(fragment.musicRes);
+                    resumeMusic();
+                    mediaDuration = mediaPlayer.getDuration();
+                    setSeekBarValue();
+                    uiUpdate();
+                }
+                @Override
+                public void onChangeColor(Palette.Swatch dominantSwatch) {
+                    changeUiColor(dominantSwatch);
                 }
             }));
         }
@@ -118,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
                 int progress =(int) ((position + positionOffset)*1000);
                 musicListPosition_pb.setProgress(progress);
             }
-
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -126,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void createMediaPlayer(int res){
         mediaPlayer = MediaPlayer.create(getApplicationContext(), res);
         mediaPlayer.seekTo(0);
@@ -141,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void pauseMusic(){
         if (mediaPlayer.isPlaying()){
             mediaPlayer.pause();
@@ -150,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
             upDateButtonImage();
         }
     }
-
     private void resumeMusic(){
         mediaPlayer.seekTo(mediaPosition);
         mediaPlayer.start();
@@ -168,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
     private void forwardMusic(){
         if (mediaCurrentPosition < mediaDuration - 1000){
             pauseMusic();
@@ -182,9 +241,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
     private void  upDateButtonImage(){
         if (isPlaying){
             playToggle_btn.setBackgroundResource(R.drawable.ic_action_pause);
@@ -192,13 +248,11 @@ public class MainActivity extends AppCompatActivity {
             playToggle_btn.setBackgroundResource(R.drawable.ic_action_play);
         }
     }
-
     private void setSeekBarValue(){
         mediaPos_sb.setMax(mediaDuration);
         mediaPos_sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
             }
 
             @Override
@@ -207,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
                     pauseSeekbarUpdate = true;
                 }
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (thread != null){
@@ -217,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private void uiUpdate(){
         if (thread != null){
             thread.interrupt();
@@ -225,14 +277,12 @@ public class MainActivity extends AppCompatActivity {
         thread = new UiUpdateThread();
         thread.start();
     }
-
     private void changeUiColor(Palette.Swatch paletteSwatch){
         mainActivity_layout.setBackgroundColor(paletteSwatch.getRgb());
         mediaPos_sb.setProgressTintList(ColorStateList.valueOf(paletteSwatch.getRgb()));
         mediaPos_sb.setThumbTintList(ColorStateList.valueOf(paletteSwatch.getRgb()));
-        musicListPosition_pb.setProgressTintList(ColorStateList.valueOf(paletteSwatch.getRgb()));
+        musicListPosition_pb.setProgressTintList(ColorStateList.valueOf(paletteSwatch.getTitleTextColor()));
         title_tv.setTextColor(paletteSwatch.getTitleTextColor());
-
     }
 
     class MusicViewPagerAdapter extends FragmentStateAdapter {
@@ -286,7 +336,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-
         }
         private String createTimeLabel(int msec){
             String timeLabel;

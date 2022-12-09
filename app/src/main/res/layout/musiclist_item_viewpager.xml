@@ -10,7 +10,7 @@
         android:layout_height="200dp"
         android:background="#FFFFFF"
         android:elevation="10dp"
-        android:src="@drawable/notebook"
+        android:src="@drawable/albumimage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
